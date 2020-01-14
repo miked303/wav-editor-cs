@@ -1,0 +1,103 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Start of v02
+
+										| 8		| 16	| 24	| 32	|
+Open Wav, Save Under Different name		| Y		| Y		| Y		|		|
+Open Mono wav, conv to stereo, save		| Y		| Y		| Y	 	|		|
+
+Play wav								| Y*	| Y		| N*	|		|
+Y* - clipping distortion at end
+N* - silence
+
+
+Maximum size supported
+
+
+
+
+----------------------------------------------------
+JUne 19 update
+	Export text - export to hex wasnt working accurately. now is.
+
+Done: Copy Paste 16 bit audio
+
+			| 8		| 16	| 24	| 32	|
+Open		|		|O		|		|		|
+Save Wav	|		|O		|		|		|
+Save txt	|		|		|		|		|
+			|		|		|		|		|
+Cut			|		|		|		|		|
+Copy		|		|O		|		|		|
+Paste		|		|O		|		|		|
+			|		|		|		|		|
+Mono->S		|		|		|		|		|
+S->Mono		|		|		|		|		|
+			|		|		|		|		|
+Crop		|		|		|		|		|
+			|		|		|		|		|
+Play au 	|		|O		|		|		|
+
+
+new file (empty)
+click anywhere in waveform -
+GetSampleNumber error
+
+
+
+Playing a wav: we update screen every n ms. each time we are recalculating what to draw which is wasteful. we should only build this once when we zoom in/out ?
+
+
+
+
+
+CircBreak_01 snare2 16bit stereo:		Open wav file reading error
+
+
+Playing:
+
+
+12000	16 bit		mono		works
+44100	16 bit		mono		works
+		24 bit		mono		FAIL AND EXCEPTION
+
+
+		data offset = 44
+		79 FF FF | E9 FE FF | 83 01 00 | A9 00 00
+
+
+		-135: FF FF FF 79 
+		-279: FF FF FE E9
+		-16776829
+
+								    79 FF FF E9 
+FE FF 83 01 00 A9 00 00 D6 00 00 70 FE FF D3 05
+
+								    79 FF FF|E9 
+FE FF|83 01 00|A9 00 00|D6 00 00|70 FE FF|D3 05
+
+according to my orig v10 app:
+-135, -279						FFFFFF79		FFFFFEE9
+387, 169						00000183		000000A9
+
+// convert three bytes signed 24 bit integer to signed long
+tval.b[0] = incomingdata[0]; // low byte
+tval.b[1] = incomingdata[1]; // middle byte
+tval.b[2] = incomingdata[2]; // high byte
+tval.b[3] = (incomingdata[2] & 0x80 ? 0xFF : 0);

@@ -1,0 +1,50 @@
+﻿distance between samples:
+1 pixel	2, 4, 8, 16 pixels 			---> zooming in
+	
+1 pixel, 0.5, 0.25, 0.125. 0.0612		---> zooming out
+
+
+
+							
+
+			<<< ZOOMING OUT			1		>> ZOOMING IN
+									|
+	0.12px, 0.25px ,0.50px			1		2.00px, 4.00px, 8.00px
+									|
+									|
+			<< 3, << 2, << 1		0		>> 1, >> 2, >> 3	
+									|
+			Samples per pixel		|		Pixels per sample
+
+
+
+
+
+            int samplesToDraw = 16 << horizZoom;
+            int pixelsPerSample = waveformAreaWidth / samplesToDraw;
+
+            int samplesPerPixel = 0;		//we use either pixelsPerSample or samplesPerPixel depending on zoom
+
+
+            if (pixelsPerSample == 0)
+            {
+			}
+
+			else {
+
+				for (int i = 0; i < samplesToDraw; i++)
+						{
+
+							//blah blah
+
+							int x1 = pixelsPerSample * i;
+			
+
+
+
+zoom goes -n/+n
+
+distance between samples = 20
+if mouseX = 30
+sampleN = 30/20 = 1
+
