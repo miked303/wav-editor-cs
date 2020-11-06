@@ -619,6 +619,65 @@ namespace Cs_WavEditor_v02
 
 
 
+        public int GenerateNewWav(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn)
+        {
+
+            audioFormat = 0x00;         //just guessed?!
+            channels = channelsIn;
+            sampleRate = sampleRateIn;
+            bitsPerSample = bitsPerSamplesIn;
+
+            byteRate = sampleRate * (bitsPerSample / 8) * channels;
+            blockAlign = bitsPerSample / 8 * channels;
+
+            int newLength = sampleRate;      //1 second i hope
+
+            uint freq = 440;
+            uint value = 0;
+
+            uint inc = (uint)((4294967295 / sampleRate) * freq);
+
+            /*
+            Phase Increment = 	Phase Acc Size 		*	 (Desired frequency / Sample rate freq)
+eg			2^32	* 	(440hz / 156250) 	= 12094627.91
+
+Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
+
+            */
+
+            short[] tempBuffer = new short[newLength * this.channels];
+
+            for (int i = 0; i < newLength; i++)
+            {
+
+                value += inc;
+                uint v1 = value >> 16;
+                int valueOut = (int)v1 - 32767;
+
+                if (valueOut < -32767)
+                    valueOut = -32767;
+                if (valueOut > 32767)
+                    valueOut = 32767;
+            
+                short v = (short)valueOut;
+             
+                int iI = i * this.channels;
+
+                tempBuffer[iI] = v;
+                /*
+                if (this.channels == 2)
+                    tempBuffer[iI + 1] = this.audioBuffer16[(0 * this.channels) + iI + 1];
+                    */
+            }
+
+            this.audioBuffer16 = tempBuffer;
+            this.length = newLength;
+
+            return 1;
+
+        }//openwav
+
+
 
 
         public int AdjustLength(int newLength)

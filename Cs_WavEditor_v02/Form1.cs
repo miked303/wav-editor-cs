@@ -1384,20 +1384,29 @@ namespace Cs_WavEditor_v02
 
         private void generateSoundToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MdiChildForm activeChild = (MdiChildForm)this.ActiveMdiChild;
-            if (activeChild == null) return;
+
 
             Dialog_GenerateSound diag = new Dialog_GenerateSound();
             if (diag.ShowDialog() == DialogResult.OK)
             {
-                /*
-                int newSampleRate = diag.GetNewSampleRate();
 
-                activeChild.Resample(newSampleRate);
-                toolStripStatusLabel1.Text = "File resampled";
-                UpdateAudioInfo(activeChild.audio);
-                activeChild.Invalidate();
-                */
+                a = new AudioFile();
+                a.GenerateNewWav(1, 44100, 16, 999);
+
+                this.listBox1.Items.Clear();
+                UpdateAudioInfo(a);
+                MdiChildForm newMDIChild = new MdiChildForm();
+                // Set the Parent Form of the Child window.  
+                newMDIChild.MdiParent = this;
+
+                newMDIChild.audio = a;
+                newMDIChild.Text = newMDIChild.filename = "New wave";
+
+                numericUpDownSelStart.Maximum = a.length;
+                numericUpDownSelEnd.Maximum = a.length;
+
+                // Display the new form.  
+                newMDIChild.Show();
 
                 diag.Close();
             }
