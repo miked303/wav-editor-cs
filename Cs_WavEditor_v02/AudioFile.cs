@@ -619,7 +619,7 @@ namespace Cs_WavEditor_v02
 
 
 
-        public int GenerateNewWav(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn)
+        public int GenerateNewWav(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn)
         {
 
             audioFormat = 0x00;         //just guessed?!
@@ -632,7 +632,7 @@ namespace Cs_WavEditor_v02
 
             int newLength = sampleRate;      //1 second i hope
 
-            uint freq = 440;
+            uint freq = (uint)freqIn;
             uint value = 0;
 
             uint inc = (uint)((4294967295 / sampleRate) * freq);
@@ -646,20 +646,72 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
             */
 
             short[] tempBuffer = new short[newLength * this.channels];
+            short v;
 
             for (int i = 0; i < newLength; i++)
             {
 
                 value += inc;
-                uint v1 = value >> 16;
-                int valueOut = (int)v1 - 32767;
 
-                if (valueOut < -32767)
-                    valueOut = -32767;
-                if (valueOut > 32767)
-                    valueOut = 32767;
-            
-                short v = (short)valueOut;
+                switch (waveformIn)
+                {
+                    case Waveform.Ramp:
+                        {
+                            uint v1 = value >> 16;
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+
+                    case Waveform.Saw:
+                        {
+                            uint v1 = 65535-(value >> 16);
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+
+                    case Waveform.Square:
+                        {
+                            uint v1 = (value >> 16);         
+                            if (v1 > 32767)
+                                v = +32767;
+                            else
+                            {
+                                v = -32767;
+                            }
+                           
+                        }
+                        break;
+
+                    default:
+                        {
+                            uint v1 = value >> 16;
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+                }
+
+        
              
                 int iI = i * this.channels;
 

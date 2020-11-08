@@ -1391,7 +1391,10 @@ namespace Cs_WavEditor_v02
             {
 
                 a = new AudioFile();
-                a.GenerateNewWav(1, 44100, 16, 999);
+
+                Waveform wave = diag.GetWaveform();
+                double freq = diag.GetFreq();
+                a.GenerateNewWav(1, 44100, 16, 999, wave, freq);
 
                 this.listBox1.Items.Clear();
                 UpdateAudioInfo(a);

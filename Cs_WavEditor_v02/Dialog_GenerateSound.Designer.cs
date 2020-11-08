@@ -30,12 +30,12 @@
         {
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxDecimalScaler = new System.Windows.Forms.TextBox();
+            this.textBoxTimeInFrames = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxDbIncrease = new System.Windows.Forms.TextBox();
+            this.textBoxTime = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxWaves = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxFreqInHz = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -66,14 +66,14 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // textBoxDecimalScaler
+            // textBoxTimeInFrames
             // 
-            this.textBoxDecimalScaler.Location = new System.Drawing.Point(176, 82);
-            this.textBoxDecimalScaler.Name = "textBoxDecimalScaler";
-            this.textBoxDecimalScaler.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDecimalScaler.TabIndex = 3;
-            this.textBoxDecimalScaler.Text = "2.0";
-            this.textBoxDecimalScaler.TextChanged += new System.EventHandler(this.textBoxDecimalScaler_TextChanged);
+            this.textBoxTimeInFrames.Location = new System.Drawing.Point(176, 82);
+            this.textBoxTimeInFrames.Name = "textBoxTimeInFrames";
+            this.textBoxTimeInFrames.Size = new System.Drawing.Size(55, 20);
+            this.textBoxTimeInFrames.TabIndex = 3;
+            this.textBoxTimeInFrames.Text = "2.0";
+            this.textBoxTimeInFrames.TextChanged += new System.EventHandler(this.textBoxDecimalScaler_TextChanged);
             // 
             // label2
             // 
@@ -84,14 +84,14 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Waveform";
             // 
-            // textBoxDbIncrease
+            // textBoxTime
             // 
-            this.textBoxDbIncrease.Location = new System.Drawing.Point(85, 82);
-            this.textBoxDbIncrease.Name = "textBoxDbIncrease";
-            this.textBoxDbIncrease.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDbIncrease.TabIndex = 5;
-            this.textBoxDbIncrease.Text = "3.0";
-            this.textBoxDbIncrease.TextChanged += new System.EventHandler(this.textBoxDbIncrease_TextChanged);
+            this.textBoxTime.Location = new System.Drawing.Point(85, 82);
+            this.textBoxTime.Name = "textBoxTime";
+            this.textBoxTime.Size = new System.Drawing.Size(55, 20);
+            this.textBoxTime.TabIndex = 5;
+            this.textBoxTime.Text = "3.0";
+            this.textBoxTime.TextChanged += new System.EventHandler(this.textBoxDbIncrease_TextChanged);
             // 
             // label3
             // 
@@ -111,19 +111,21 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "s";
             // 
-            // comboBox1
+            // comboBoxWaves
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxWaves.FormattingEnabled = true;
+            this.comboBoxWaves.Items.AddRange(new object[] {
+            "Saw",
+            "Ramp",
             "Sine",
             "Square",
             "Triangle",
-            "Sawtooth",
             "Noise"});
-            this.comboBox1.Location = new System.Drawing.Point(85, 6);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(72, 21);
-            this.comboBox1.TabIndex = 8;
+            this.comboBoxWaves.Location = new System.Drawing.Point(85, 6);
+            this.comboBoxWaves.Name = "comboBoxWaves";
+            this.comboBoxWaves.Size = new System.Drawing.Size(72, 21);
+            this.comboBoxWaves.TabIndex = 8;
+            this.comboBoxWaves.SelectedIndexChanged += new System.EventHandler(this.comboBoxWaves_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -201,12 +203,12 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxFreqInHz);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxWaves);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxDbIncrease);
+            this.Controls.Add(this.textBoxTime);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxDecimalScaler);
+            this.Controls.Add(this.textBoxTimeInFrames);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
             this.MaximizeBox = false;
@@ -222,12 +224,12 @@
 
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxDecimalScaler;
+        private System.Windows.Forms.TextBox textBoxTimeInFrames;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxDbIncrease;
+        private System.Windows.Forms.TextBox textBoxTime;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxWaves;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxFreqInHz;
         private System.Windows.Forms.Label label5;
