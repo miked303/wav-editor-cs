@@ -1394,7 +1394,11 @@ namespace Cs_WavEditor_v02
 
                 Waveform wave = diag.GetWaveform();
                 double freq = diag.GetFreq();
-                a.GenerateNewWav(1, 44100, 16, 999, wave, freq);
+                bool useBleps = diag.UsePolyBleps();
+                int bits = diag.GetBitDepth();
+                int length = diag.GetLength();
+                int bandlimiting = diag.GetBandlimiting();
+                a.GenerateNewWav3(1, 48000, bits, length, wave, freq, useBleps, bandlimiting);
 
                 this.listBox1.Items.Clear();
                 UpdateAudioInfo(a);

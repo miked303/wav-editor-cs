@@ -51,6 +51,29 @@ namespace Cs_WavEditor_v02
             return t;
         }
 
+        public bool UsePolyBleps()
+        {
+            return checkBoxUseBLEP.Checked;
+        }
+
+        public int GetBitDepth()
+        {
+            if(checkBoxBitz.Checked)
+                return 24;
+            return 16;
+        }
+
+        public int GetBandlimiting()
+        {
+            return Int32.Parse(textBoxBandLimiting.Text);
+        }
+
+        public int GetLength()
+        {
+            return Int32.Parse(textBoxTime.Text);
+        }
+
+
         public Waveform GetWaveform()
         {
             //return currentWaveform;

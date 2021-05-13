@@ -43,6 +43,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.checkBoxUseBLEP = new System.Windows.Forms.CheckBox();
+            this.checkBoxBitz = new System.Windows.Forms.CheckBox();
+            this.textBoxBandLimiting = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -90,7 +93,7 @@
             this.textBoxTime.Name = "textBoxTime";
             this.textBoxTime.Size = new System.Drawing.Size(55, 20);
             this.textBoxTime.TabIndex = 5;
-            this.textBoxTime.Text = "3.0";
+            this.textBoxTime.Text = "3";
             this.textBoxTime.TextChanged += new System.EventHandler(this.textBoxDbIncrease_TextChanged);
             // 
             // label3
@@ -189,6 +192,34 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "note";
             // 
+            // checkBoxUseBLEP
+            // 
+            this.checkBoxUseBLEP.AutoSize = true;
+            this.checkBoxUseBLEP.Location = new System.Drawing.Point(213, 6);
+            this.checkBoxUseBLEP.Name = "checkBoxUseBLEP";
+            this.checkBoxUseBLEP.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxUseBLEP.TabIndex = 16;
+            this.checkBoxUseBLEP.Text = "Use PolyBLEPs";
+            this.checkBoxUseBLEP.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxBitz
+            // 
+            this.checkBoxBitz.AutoSize = true;
+            this.checkBoxBitz.Location = new System.Drawing.Point(38, 170);
+            this.checkBoxBitz.Name = "checkBoxBitz";
+            this.checkBoxBitz.Size = new System.Drawing.Size(119, 17);
+            this.checkBoxBitz.TabIndex = 17;
+            this.checkBoxBitz.Text = "24bit (16b is defaut(";
+            this.checkBoxBitz.UseVisualStyleBackColor = true;
+            // 
+            // textBoxBandLimiting
+            // 
+            this.textBoxBandLimiting.Location = new System.Drawing.Point(35, 207);
+            this.textBoxBandLimiting.Name = "textBoxBandLimiting";
+            this.textBoxBandLimiting.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBandLimiting.TabIndex = 18;
+            this.textBoxBandLimiting.Text = "-1";
+            // 
             // Dialog_GenerateSound
             // 
             this.AcceptButton = this.buttonOk;
@@ -196,6 +227,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(339, 242);
+            this.Controls.Add(this.textBoxBandLimiting);
+            this.Controls.Add(this.checkBoxBitz);
+            this.Controls.Add(this.checkBoxUseBLEP);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -237,5 +271,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBoxUseBLEP;
+        private System.Windows.Forms.CheckBox checkBoxBitz;
+        private System.Windows.Forms.TextBox textBoxBandLimiting;
     }
 }
