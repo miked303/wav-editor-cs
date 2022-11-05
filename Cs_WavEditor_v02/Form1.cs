@@ -1546,5 +1546,10 @@ namespace Cs_WavEditor_v02
                 activeChild.Invalidate();
             }
         }
+
+        private void knownLimitationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Only 8 bit and 16 bit wav playback supported\n", "Known Limitations");
+        }
     } // class
 }
