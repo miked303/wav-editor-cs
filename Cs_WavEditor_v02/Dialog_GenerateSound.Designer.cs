@@ -43,14 +43,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.checkBoxPolyBlep = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(252, 207);
+            this.buttonCancel.Location = new System.Drawing.Point(336, 255);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 0;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(171, 207);
+            this.buttonOk.Location = new System.Drawing.Point(228, 255);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.Size = new System.Drawing.Size(100, 28);
             this.buttonOk.TabIndex = 1;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -68,9 +71,10 @@
             // 
             // textBoxTimeInFrames
             // 
-            this.textBoxTimeInFrames.Location = new System.Drawing.Point(176, 82);
+            this.textBoxTimeInFrames.Location = new System.Drawing.Point(235, 101);
+            this.textBoxTimeInFrames.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxTimeInFrames.Name = "textBoxTimeInFrames";
-            this.textBoxTimeInFrames.Size = new System.Drawing.Size(55, 20);
+            this.textBoxTimeInFrames.Size = new System.Drawing.Size(72, 22);
             this.textBoxTimeInFrames.TabIndex = 3;
             this.textBoxTimeInFrames.Text = "2.0";
             this.textBoxTimeInFrames.TextChanged += new System.EventHandler(this.textBoxDecimalScaler_TextChanged);
@@ -78,17 +82,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(16, 11);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.Size = new System.Drawing.Size(72, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "Waveform";
             // 
             // textBoxTime
             // 
-            this.textBoxTime.Location = new System.Drawing.Point(85, 82);
+            this.textBoxTime.Location = new System.Drawing.Point(113, 101);
+            this.textBoxTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxTime.Name = "textBoxTime";
-            this.textBoxTime.Size = new System.Drawing.Size(55, 20);
+            this.textBoxTime.Size = new System.Drawing.Size(72, 22);
             this.textBoxTime.TabIndex = 5;
             this.textBoxTime.Text = "3.0";
             this.textBoxTime.TextChanged += new System.EventHandler(this.textBoxDbIncrease_TextChanged);
@@ -96,18 +102,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(48, 46);
+            this.label3.Location = new System.Drawing.Point(64, 57);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.Size = new System.Drawing.Size(39, 17);
             this.label3.TabIndex = 6;
             this.label3.Text = "Pitch";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(145, 85);
+            this.label4.Location = new System.Drawing.Point(193, 105);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 13);
+            this.label4.Size = new System.Drawing.Size(15, 17);
             this.label4.TabIndex = 7;
             this.label4.Text = "s";
             // 
@@ -121,81 +129,100 @@
             "Square",
             "Triangle",
             "Noise"});
-            this.comboBoxWaves.Location = new System.Drawing.Point(85, 6);
+            this.comboBoxWaves.Location = new System.Drawing.Point(113, 7);
+            this.comboBoxWaves.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxWaves.Name = "comboBoxWaves";
-            this.comboBoxWaves.Size = new System.Drawing.Size(72, 21);
+            this.comboBoxWaves.Size = new System.Drawing.Size(95, 24);
             this.comboBoxWaves.TabIndex = 8;
             this.comboBoxWaves.SelectedIndexChanged += new System.EventHandler(this.comboBoxWaves_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(148, 46);
+            this.label1.Location = new System.Drawing.Point(197, 57);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 13);
+            this.label1.Size = new System.Drawing.Size(25, 17);
             this.label1.TabIndex = 9;
             this.label1.Text = "Hz";
             // 
             // textBoxFreqInHz
             // 
-            this.textBoxFreqInHz.Location = new System.Drawing.Point(85, 43);
+            this.textBoxFreqInHz.Location = new System.Drawing.Point(113, 53);
+            this.textBoxFreqInHz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxFreqInHz.Name = "textBoxFreqInHz";
-            this.textBoxFreqInHz.Size = new System.Drawing.Size(57, 20);
+            this.textBoxFreqInHz.Size = new System.Drawing.Size(75, 22);
             this.textBoxFreqInHz.TabIndex = 10;
             this.textBoxFreqInHz.Text = "440";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 88);
+            this.label5.Location = new System.Drawing.Point(43, 108);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.Size = new System.Drawing.Size(39, 17);
             this.label5.TabIndex = 11;
             this.label5.Text = "Time";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(234, 85);
+            this.label6.Location = new System.Drawing.Point(312, 105);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.Size = new System.Drawing.Size(51, 17);
             this.label6.TabIndex = 12;
             this.label6.Text = "frames";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(35, 136);
+            this.label7.Location = new System.Drawing.Point(47, 167);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.Size = new System.Drawing.Size(55, 17);
             this.label7.TabIndex = 13;
             this.label7.Text = "Fade In";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(195, 136);
+            this.label8.Location = new System.Drawing.Point(260, 167);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 13);
+            this.label8.Size = new System.Drawing.Size(67, 17);
             this.label8.TabIndex = 14;
             this.label8.Text = "Fade Out";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(210, 45);
+            this.label9.Location = new System.Drawing.Point(280, 55);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(28, 13);
+            this.label9.Size = new System.Drawing.Size(36, 17);
             this.label9.TabIndex = 15;
             this.label9.Text = "note";
+            // 
+            // checkBoxPolyBlep
+            // 
+            this.checkBoxPolyBlep.AutoSize = true;
+            this.checkBoxPolyBlep.Location = new System.Drawing.Point(235, 9);
+            this.checkBoxPolyBlep.Name = "checkBoxPolyBlep";
+            this.checkBoxPolyBlep.Size = new System.Drawing.Size(176, 21);
+            this.checkBoxPolyBlep.TabIndex = 16;
+            this.checkBoxPolyBlep.Text = "PolyBleps (Limits Alias)";
+            this.checkBoxPolyBlep.UseVisualStyleBackColor = true;
             // 
             // Dialog_GenerateSound
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(339, 242);
+            this.ClientSize = new System.Drawing.Size(452, 298);
+            this.Controls.Add(this.checkBoxPolyBlep);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -211,6 +238,7 @@
             this.Controls.Add(this.textBoxTimeInFrames);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dialog_GenerateSound";
@@ -237,5 +265,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBoxPolyBlep;
     }
 }

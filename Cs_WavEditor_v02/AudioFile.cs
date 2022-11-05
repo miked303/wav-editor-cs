@@ -617,6 +617,205 @@ namespace Cs_WavEditor_v02
         }
 
 
+        int poly_blep(uint t)
+        {
+            return 0;
+        }
+
+        double poly_blep_orig(double t, double dt)
+        {
+            // 0 <= t < 1
+            if (t < dt)
+            {
+                t /= dt;
+                return t + t - t * t - 1.0;
+            }
+            // -1 < t < 0
+            else if (t > 1.0 - dt)
+            {
+                t = (t - 1.0) / dt;
+                return t * t + t + t + 1.0;
+            }
+            // 0 otherwise
+            else return 0.0;
+        }
+
+
+        /*
+        poly_blep(double t)
+        {
+            double dt = mPhaseIncrement / twoPI;
+            // 0 <= t < 1
+            if (t < dt)
+            {
+                t /= dt;
+                return t + t - t * t - 1.0;
+            }
+            // -1 < t < 0
+            else if (t > 1.0 - dt)
+            {
+                t = (t - 1.0) / dt;
+                return t * t + t + t + 1.0;
+            }
+            // 0 otherwise
+            else return 0.0;
+        }
+        */
+
+        //To replace previous
+        public int GenerateNewWavDeluxe(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn, bool usePolyBleps)
+        {
+
+            audioFormat = 0x00;         //just guessed?!
+            channels = channelsIn;
+            sampleRate = sampleRateIn;
+            bitsPerSample = bitsPerSamplesIn;
+
+            byteRate = sampleRate * (bitsPerSample / 8) * channels;
+            blockAlign = bitsPerSample / 8 * channels;
+
+            int newLength = sampleRate;      //1 second i hope
+
+            uint freq = (uint)freqIn;
+            uint value = 0;
+
+            uint inc = (uint)((4294967295 / sampleRate) * freq);
+
+            /*
+            Phase Increment = 	Phase Acc Size 		*	 (Desired frequency / Sample rate freq)
+eg			2^32	* 	(440hz / 156250) 	= 12094627.91
+
+Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
+
+            */
+
+            short[] tempBuffer = new short[newLength * this.channels];
+            short v;
+
+            for (int i = 0; i < newLength; i++)
+            {
+
+                value += inc;
+
+                switch (waveformIn)
+                {
+                    case Waveform.Ramp:
+                        {
+
+                            if (usePolyBleps)
+                            {
+
+                                uint valueTemp = value;
+
+                                //buffer[i] = 1.0 - (2.0 * mPhase / twoPI);
+                                //-1.0 to +1.0 range over 2PI
+
+                                //2.0 => 2^32
+                                //TWOPI = 2^32
+
+                                double twoPI = 4294967295;
+                                double mPhaseIncrement = inc;
+
+                                double t = value / 4294967295.0;
+                                double dt = mPhaseIncrement / twoPI;
+                                double z = poly_blep_orig(t, dt);
+
+                                uint zUINT = (uint) z;
+
+                                valueTemp -= zUINT;
+
+
+
+
+
+
+                                uint v1 = valueTemp >> 16;
+                                int valueOut = (int)v1 - 32767;
+
+                                if (valueOut < -32767)
+                                    valueOut = -32767;
+                                if (valueOut > 32767)
+                                    valueOut = 32767;
+
+                                v = (short)valueOut;
+                            }
+                            else
+                            {
+                                uint v1 = value >> 16;
+                                int valueOut = (int)v1 - 32767;
+
+                                if (valueOut < -32767)
+                                    valueOut = -32767;
+                                if (valueOut > 32767)
+                                    valueOut = 32767;
+
+                                v = (short)valueOut;
+                            }
+
+           
+                        }
+                        break;
+
+                    case Waveform.Saw:
+                        {
+                            uint v1 = 65535 - (value >> 16);
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+
+                    case Waveform.Square:
+                        {
+                            uint v1 = (value >> 16);
+                            if (v1 > 32767)
+                                v = +32767;
+                            else
+                            {
+                                v = -32767;
+                            }
+
+                        }
+                        break;
+
+                    default:
+                        {
+                            uint v1 = value >> 16;
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+                }
+
+
+
+                int iI = i * this.channels;
+
+                tempBuffer[iI] = v;
+                /*
+                if (this.channels == 2)
+                    tempBuffer[iI + 1] = this.audioBuffer16[(0 * this.channels) + iI + 1];
+                    */
+            }
+
+            this.audioBuffer16 = tempBuffer;
+            this.length = newLength;
+
+            return 1;
+
+        }//openwav
+
 
 
         public int GenerateNewWav(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn)
