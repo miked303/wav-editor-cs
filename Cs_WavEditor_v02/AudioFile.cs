@@ -817,6 +817,29 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
         }//openwav
 
 
+                int iI = i * this.channels;
+
+                if (bitsPerSample == 16)
+                    tempBuffer[iI] = v;
+                else if (bitsPerSample == 24)
+                    tempBufferInts[iI] = vInt;
+                /*
+                if (this.channels == 2)
+                    tempBuffer[iI + 1] = this.audioBuffer16[(0 * this.channels) + iI + 1];
+                    */
+            }
+
+            if(bitsPerSample==16)
+                this.audioBuffer16 = tempBuffer;
+            else if (bitsPerSample == 24)
+                this.audioBuffer32 = tempBufferInts;
+
+            this.length = newLength;
+
+            return 1;
+
+        }//openwav
+
 
         public int GenerateNewWav(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn)
         {
@@ -834,7 +857,10 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
             uint freq = (uint)freqIn;
             uint value = 0;
 
-            uint inc = (uint)((4294967295 / sampleRate) * freq);
+            const uint MAX_VALUE = 4294967295;
+
+
+            uint inc = (uint)((MAX_VALUE / sampleRate) * freq);
 
             /*
             Phase Increment = 	Phase Acc Size 		*	 (Desired frequency / Sample rate freq)
@@ -870,7 +896,61 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
 
                     case Waveform.Saw:
                         {
-                            uint v1 = 65535-(value >> 16);
+
+                            bool usePolyBlep = true;
+                            const double PI2 = 3.14159 * 2.0;
+
+                            double t = 0f;      //param in
+                            double retValue = 0f;
+                            uint intRetValue = 0;
+
+                            //double twoPI = MAX_VALUE;
+
+
+                            //poly_blep(double t)
+                            if (!usePolyBlep)
+                            {
+                                /*
+                                To go from 2^32 to 2PI range
+                                we do intAcc = piAcc / 2PI * 255 
+                                and piAcc = intAcc / 255 * 2PI
+                                
+                                */
+
+                                //t = mPhase / twoPI;
+                                t = value / (double)MAX_VALUE;
+
+                                //double dt = mPhaseIncrement / twoPI;
+                                double dt = inc / (double)MAX_VALUE;
+
+                                // 0 <= t < 1
+                                if (t < dt)
+                                {
+                                    t /= dt;
+                                    retValue = t + t - t * t - 1.0;
+                                }
+                                // -1 < t < 0
+                                else if (t > 1.0 - dt)
+                                {
+                                    t = (t - 1.0) / dt;
+                                    retValue = t * t + t + t + 1.0;
+                                }
+                                // 0 otherwise
+                                else
+                                    retValue = 0.0f;
+
+                                intRetValue = (uint)((retValue / PI2) * (double)MAX_VALUE);
+                            }
+
+
+
+                            uint valueTemp = value;
+                            valueTemp -= intRetValue;
+
+
+
+
+                            uint v1 = 65535-(valueTemp >> 16);
                             int valueOut = (int)v1 - 32767;
 
                             if (valueOut < -32767)

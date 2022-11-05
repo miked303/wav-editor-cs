@@ -93,6 +93,9 @@
             this.numericUpDownSelEnd = new System.Windows.Forms.NumericUpDown();
             this.labelSelEnd = new System.Windows.Forms.Label();
             this.labelSelStart = new System.Windows.Forms.Label();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knownLimitationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelStart)).BeginInit();
@@ -197,7 +200,8 @@
             this.editToolStripMenuItem,
             this.analyseToolStripMenuItem,
             this.processToolStripMenuItem,
-            this.programmingToolStripMenuItem});
+            this.programmingToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(912, 28);
@@ -221,48 +225,48 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // openRecentToolStripMenuItem
             // 
             this.openRecentToolStripMenuItem.Name = "openRecentToolStripMenuItem";
-            this.openRecentToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.openRecentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openRecentToolStripMenuItem.Text = "Open Recent";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // exportRAWToolStripMenuItem
             // 
             this.exportRAWToolStripMenuItem.Name = "exportRAWToolStripMenuItem";
-            this.exportRAWToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.exportRAWToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportRAWToolStripMenuItem.Text = "Export RAW";
             this.exportRAWToolStripMenuItem.Click += new System.EventHandler(this.exportRAWToolStripMenuItem_Click);
             // 
             // exportTextToolStripMenuItem
             // 
             this.exportTextToolStripMenuItem.Name = "exportTextToolStripMenuItem";
-            this.exportTextToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.exportTextToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportTextToolStripMenuItem.Text = "Export Text";
             this.exportTextToolStripMenuItem.Click += new System.EventHandler(this.exportTextToolStripMenuItem_Click);
             // 
@@ -286,66 +290,59 @@
             // cutToolStripMenuItem
             // 
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cutToolStripMenuItem.Text = "Cut";
             this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // pasteMixToolStripMenuItem
-            // 
-            this.pasteMixToolStripMenuItem.Name = "pasteMixToolStripMenuItem";
-            this.pasteMixToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
-            this.pasteMixToolStripMenuItem.Text = "Paste - Mix";
-            this.pasteMixToolStripMenuItem.Click += new System.EventHandler(this.pasteMixToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // cropToolStripMenuItem
             // 
             this.cropToolStripMenuItem.Name = "cropToolStripMenuItem";
-            this.cropToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.cropToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cropToolStripMenuItem.Text = "Crop";
             this.cropToolStripMenuItem.Click += new System.EventHandler(this.cropToolStripMenuItem_Click);
             // 
@@ -410,21 +407,21 @@
             // mixLRToolStripMenuItem
             // 
             this.mixLRToolStripMenuItem.Name = "mixLRToolStripMenuItem";
-            this.mixLRToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.mixLRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mixLRToolStripMenuItem.Text = "Mix L+R";
             this.mixLRToolStripMenuItem.Click += new System.EventHandler(this.mixLRToolStripMenuItem_Click);
             // 
             // useLToolStripMenuItem
             // 
             this.useLToolStripMenuItem.Name = "useLToolStripMenuItem";
-            this.useLToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.useLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.useLToolStripMenuItem.Text = "Use L";
             this.useLToolStripMenuItem.Click += new System.EventHandler(this.useLToolStripMenuItem_Click);
             // 
             // useRToolStripMenuItem
             // 
             this.useRToolStripMenuItem.Name = "useRToolStripMenuItem";
-            this.useRToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.useRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.useRToolStripMenuItem.Text = "Use R";
             this.useRToolStripMenuItem.Click += new System.EventHandler(this.useRToolStripMenuItem_Click);
             // 
@@ -474,37 +471,6 @@
             this.generateSoundToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.generateSoundToolStripMenuItem.Text = "Generate Sound";
             this.generateSoundToolStripMenuItem.Click += new System.EventHandler(this.generateSoundToolStripMenuItem_Click);
-            // 
-            // changeBitDepthToolStripMenuItem
-            // 
-            this.changeBitDepthToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bit8ToolStripMenuItem,
-            this.bit16ToolStripMenuItem,
-            this.bit24ToolStripMenuItem});
-            this.changeBitDepthToolStripMenuItem.Name = "changeBitDepthToolStripMenuItem";
-            this.changeBitDepthToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
-            this.changeBitDepthToolStripMenuItem.Text = "Change Bit-Depth";
-            // 
-            // bit8ToolStripMenuItem
-            // 
-            this.bit8ToolStripMenuItem.Name = "bit8ToolStripMenuItem";
-            this.bit8ToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
-            this.bit8ToolStripMenuItem.Text = "8-Bit";
-            this.bit8ToolStripMenuItem.Click += new System.EventHandler(this.bit8ToolStripMenuItem_Click);
-            // 
-            // bit16ToolStripMenuItem
-            // 
-            this.bit16ToolStripMenuItem.Name = "bit16ToolStripMenuItem";
-            this.bit16ToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
-            this.bit16ToolStripMenuItem.Text = "16-Bit";
-            this.bit16ToolStripMenuItem.Click += new System.EventHandler(this.bit16ToolStripMenuItem_Click);
-            // 
-            // bit24ToolStripMenuItem
-            // 
-            this.bit24ToolStripMenuItem.Name = "bit24ToolStripMenuItem";
-            this.bit24ToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
-            this.bit24ToolStripMenuItem.Text = "24-Bit";
-            this.bit24ToolStripMenuItem.Click += new System.EventHandler(this.bit24ToolStripMenuItem_Click);
             // 
             // programmingToolStripMenuItem
             // 
@@ -617,6 +583,44 @@
             this.labelSelStart.TabIndex = 16;
             this.labelSelStart.Text = "Start";
             // 
+            // pasteMixToolStripMenuItem
+            // 
+            this.pasteMixToolStripMenuItem.Name = "pasteMixToolStripMenuItem";
+            this.pasteMixToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteMixToolStripMenuItem.Text = "Paste - Mix";
+            this.pasteMixToolStripMenuItem.Click += new System.EventHandler(this.pasteMixToolStripMenuItem_Click);
+            // 
+            // changeBitDepthToolStripMenuItem
+            // 
+            this.changeBitDepthToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bit8ToolStripMenuItem,
+            this.bit16ToolStripMenuItem,
+            this.bit24ToolStripMenuItem});
+            this.changeBitDepthToolStripMenuItem.Name = "changeBitDepthToolStripMenuItem";
+            this.changeBitDepthToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.changeBitDepthToolStripMenuItem.Text = "Change Bit-Depth";
+            // 
+            // bit8ToolStripMenuItem
+            // 
+            this.bit8ToolStripMenuItem.Name = "bit8ToolStripMenuItem";
+            this.bit8ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bit8ToolStripMenuItem.Text = "8-Bit";
+            this.bit8ToolStripMenuItem.Click += new System.EventHandler(this.bit8ToolStripMenuItem_Click);
+            // 
+            // bit16ToolStripMenuItem
+            // 
+            this.bit16ToolStripMenuItem.Name = "bit16ToolStripMenuItem";
+            this.bit16ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bit16ToolStripMenuItem.Text = "16-Bit";
+            this.bit16ToolStripMenuItem.Click += new System.EventHandler(this.bit16ToolStripMenuItem_Click);
+            // 
+            // bit24ToolStripMenuItem
+            // 
+            this.bit24ToolStripMenuItem.Name = "bit24ToolStripMenuItem";
+            this.bit24ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bit24ToolStripMenuItem.Text = "24-Bit";
+            this.bit24ToolStripMenuItem.Click += new System.EventHandler(this.bit24ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -713,6 +717,9 @@
         private System.Windows.Forms.ToolStripMenuItem bit8ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bit16ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bit24ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem knownLimitationsToolStripMenuItem;
     }
 }
 

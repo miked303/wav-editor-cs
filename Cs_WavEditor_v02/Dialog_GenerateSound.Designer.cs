@@ -96,7 +96,7 @@
             this.textBoxTime.Name = "textBoxTime";
             this.textBoxTime.Size = new System.Drawing.Size(72, 22);
             this.textBoxTime.TabIndex = 5;
-            this.textBoxTime.Text = "3.0";
+            this.textBoxTime.Text = "3";
             this.textBoxTime.TextChanged += new System.EventHandler(this.textBoxDbIncrease_TextChanged);
             // 
             // label3
