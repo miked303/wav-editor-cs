@@ -43,7 +43,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkBoxPolyBlep = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseBLEP = new System.Windows.Forms.CheckBox();
+            this.checkBoxBitz = new System.Windows.Forms.CheckBox();
+            this.textBoxBandLimiting = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -205,15 +207,33 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "note";
             // 
-            // checkBoxPolyBlep
+            // checkBoxUseBLEP
             // 
-            this.checkBoxPolyBlep.AutoSize = true;
-            this.checkBoxPolyBlep.Location = new System.Drawing.Point(235, 9);
-            this.checkBoxPolyBlep.Name = "checkBoxPolyBlep";
-            this.checkBoxPolyBlep.Size = new System.Drawing.Size(176, 21);
-            this.checkBoxPolyBlep.TabIndex = 16;
-            this.checkBoxPolyBlep.Text = "PolyBleps (Limits Alias)";
-            this.checkBoxPolyBlep.UseVisualStyleBackColor = true;
+            this.checkBoxUseBLEP.AutoSize = true;
+            this.checkBoxUseBLEP.Location = new System.Drawing.Point(213, 6);
+            this.checkBoxUseBLEP.Name = "checkBoxUseBLEP";
+            this.checkBoxUseBLEP.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxUseBLEP.TabIndex = 16;
+            this.checkBoxUseBLEP.Text = "Use PolyBLEPs";
+            this.checkBoxUseBLEP.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxBitz
+            // 
+            this.checkBoxBitz.AutoSize = true;
+            this.checkBoxBitz.Location = new System.Drawing.Point(38, 170);
+            this.checkBoxBitz.Name = "checkBoxBitz";
+            this.checkBoxBitz.Size = new System.Drawing.Size(119, 17);
+            this.checkBoxBitz.TabIndex = 17;
+            this.checkBoxBitz.Text = "24bit (16b is defaut(";
+            this.checkBoxBitz.UseVisualStyleBackColor = true;
+            // 
+            // textBoxBandLimiting
+            // 
+            this.textBoxBandLimiting.Location = new System.Drawing.Point(35, 207);
+            this.textBoxBandLimiting.Name = "textBoxBandLimiting";
+            this.textBoxBandLimiting.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBandLimiting.TabIndex = 18;
+            this.textBoxBandLimiting.Text = "-1";
             // 
             // Dialog_GenerateSound
             // 
@@ -221,8 +241,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(452, 298);
-            this.Controls.Add(this.checkBoxPolyBlep);
+            this.ClientSize = new System.Drawing.Size(339, 242);
+            this.Controls.Add(this.textBoxBandLimiting);
+            this.Controls.Add(this.checkBoxBitz);
+            this.Controls.Add(this.checkBoxUseBLEP);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -265,6 +287,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox checkBoxPolyBlep;
+        private System.Windows.Forms.CheckBox checkBoxUseBLEP;
+        private System.Windows.Forms.CheckBox checkBoxBitz;
+        private System.Windows.Forms.TextBox textBoxBandLimiting;
     }
 }

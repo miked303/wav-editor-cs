@@ -617,10 +617,25 @@ namespace Cs_WavEditor_v02
         }
 
 
-        int poly_blep(uint t)
+        double poly_blep(double t, double mPhaseIncrement, double twoPI)
         {
-            return 0;
+            double dt = mPhaseIncrement / twoPI;
+            // 0 <= t < 1                               //his comment; i dont understand this line
+            if (t < dt)                                 //if first sample in period
+            {
+                t /= dt;
+                return t + t - t * t - 1.0;             //value returned is bigger the closer t is to 0
+            }
+            // -1 < t < 0                               //his comment; i dont understand this line
+            else if (t > 1.0 - dt)                      //if last sample in period
+            {
+                t = (t - 1.0) / dt;                     
+                return t * t + t + t + 1.0;             //value returned is bigger the closer t is to 1
+            }
+            // 0 otherwise
+            else return 0.0;
         }
+
 
         double poly_blep_orig(double t, double dt)
         {
@@ -640,29 +655,6 @@ namespace Cs_WavEditor_v02
             else return 0.0;
         }
 
-
-        /*
-        poly_blep(double t)
-        {
-            double dt = mPhaseIncrement / twoPI;
-            // 0 <= t < 1
-            if (t < dt)
-            {
-                t /= dt;
-                return t + t - t * t - 1.0;
-            }
-            // -1 < t < 0
-            else if (t > 1.0 - dt)
-            {
-                t = (t - 1.0) / dt;
-                return t * t + t + t + 1.0;
-            }
-            // 0 otherwise
-            else return 0.0;
-        }
-        */
-
-        //To replace previous
         public int GenerateNewWavDeluxe(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn, bool usePolyBleps)
         {
 
@@ -720,7 +712,7 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
                                 double dt = mPhaseIncrement / twoPI;
                                 double z = poly_blep_orig(t, dt);
 
-                                uint zUINT = (uint) z;
+                                uint zUINT = (uint)z;
 
                                 valueTemp -= zUINT;
 
@@ -752,7 +744,7 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
                                 v = (short)valueOut;
                             }
 
-           
+
                         }
                         break;
 
@@ -767,6 +759,558 @@ Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
                                 valueOut = 32767;
 
                             v = (short)valueOut;
+                        }
+                        break;
+
+                    case Waveform.Square:
+                        {
+                            uint v1 = (value >> 16);
+                            if (v1 > 32767)
+                                v = +32767;
+                            else
+                            {
+                                v = -32767;
+                            }
+
+                        }
+                        break;
+
+                    default:
+                        {
+                            uint v1 = value >> 16;
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+                }
+
+
+
+                int iI = i * this.channels;
+
+                tempBuffer[iI] = v;
+                /*
+                if (this.channels == 2)
+                    tempBuffer[iI + 1] = this.audioBuffer16[(0 * this.channels) + iI + 1];
+                    */
+            }
+
+            this.audioBuffer16 = tempBuffer;
+            this.length = newLength;
+
+            return 1;
+
+        }//generatenewwavedeluxe
+
+        public int GenerateNewWav3(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn, bool usePolyBlep, int banding)
+        {
+
+            const double PI2 = 3.14159 * 2.0;
+
+            audioFormat = 0x00;         //just guessed?!
+            channels = channelsIn;
+            sampleRate = sampleRateIn;
+            bitsPerSample = bitsPerSamplesIn;
+
+            byteRate = sampleRate * (bitsPerSample / 8) * channels;
+            blockAlign = bitsPerSample / 8 * channels;
+
+            int newLength = sampleRate* lengthIn;      //1 second i hope
+
+            uint freq = (uint)freqIn;
+            uint value = 0;
+
+            const uint MAX_VALUE = 4294967295;
+
+
+            uint inc = (uint)((MAX_VALUE / sampleRate) * freq);
+
+            double mPhaseIncrement = (((PI2 * (double)freq) / sampleRate) );
+            double mPhase = 0f;
+            double twoPI = PI2;
+
+
+            /*
+            Phase Increment = 	Phase Acc Size 		*	 (Desired frequency / Sample rate freq)
+eg			2^32	* 	(440hz / 156250) 	= 12094627.91
+
+Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
+
+            */
+
+            short[] tempBuffer;
+            int[] tempBufferInts;
+
+            if (bitsPerSample == 16)
+            {
+                tempBuffer = new short[newLength * this.channels];
+                tempBufferInts = new int[1 * this.channels];
+            }
+            else if (bitsPerSample == 24)
+            {
+                tempBuffer = new short[1 * this.channels];
+                tempBufferInts = new int[newLength * this.channels];
+            }
+            else
+            {
+                tempBuffer = new short[1 * this.channels];
+                tempBufferInts = new int[1 * this.channels];
+            }
+
+
+
+            short v = 0;
+            int vInt = 0;
+
+
+            for (int i = 0; i < newLength; i++)
+            {
+
+                /*
+                value += inc;
+
+
+
+                mPhase += mPhaseIncrement;
+                while (mPhase >= twoPI)
+                {
+                    mPhase -= twoPI;
+                }
+                */
+
+
+
+                switch (waveformIn)
+                {
+                    case Waveform.Ramp:
+                        {
+                            uint v1 = value >> 16;
+
+                            if (usePolyBlep)
+                            {
+                                v1 = v1 & 0xf000;
+                            }
+
+
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+
+                    case Waveform.Saw:
+                        {
+
+
+                            double t = 0f;      //param in
+                            double retValue = 0f;
+                            uint intRetValue = 0;
+
+                            //double twoPI = MAX_VALUE;
+
+                            //Polyblep routine to reduce aliasing
+                            //It works by targeting the transients: the part of the saw/ramp wave that is the big jump up/down. 
+                            //The rest of the wav which is a slope is left unaffected.
+                            //We adjust the first and last sample of a period: before and after the jump.
+                            //We do this by adding/subtract an amount to the standard raw wav. For the unaffected parts, zero is added.
+                            //The value added or subtracted is greater the closer we are to zero or one. eg. it is rounded/smoothed more
+
+                            //This is only applicable for a ramp wave; a square wave has two transients per sample
+
+
+                            //poly_blep(double t)
+                            if (usePolyBlep)
+                            {
+                                /*
+                                To go from 2^32 to 2PI range
+                                we do intAcc = piAcc / 2PI * 255 
+                                and piAcc = intAcc / 255 * 2PI
+                                
+                                */
+
+                                //t = mPhase / twoPI;
+                                t = value / (double)MAX_VALUE;
+
+                                //double dt = mPhaseIncrement / twoPI;
+                                double dt = inc / (double)MAX_VALUE;
+
+                                // 0 <= t < 1
+                                if (t < dt)
+                                {
+                                    t /= dt;
+                                    retValue = t + t - t * t - 1.0;
+                                }
+                                // -1 < t < 0
+                                else if (t > 1.0 - dt)
+                                {
+                                    t = (t - 1.0) / dt;
+                                    retValue = t * t + t + t + 1.0;
+                                }
+                                // 0 otherwise
+                                else
+                                    retValue = 0.0f;
+
+                                intRetValue = (uint)((retValue / PI2) * (double)MAX_VALUE);
+
+
+
+
+
+
+
+
+
+
+                                t = mPhase / twoPI;
+                                retValue = poly_blep(t, mPhaseIncrement, twoPI);
+                            }
+
+
+                            double doubleValueTemp = mPhase;
+                            doubleValueTemp -= retValue;
+
+
+                            double scaler = 0.75;
+
+                            //convert to short
+
+                            uint valueTemp = (uint)((doubleValueTemp / twoPI) * MAX_VALUE);
+
+                            /*
+                            uint valueTemp = (uint)((mPhase / twoPI) * MAX_VALUE);
+                            valueTemp -= intRetValue;
+                            */
+
+                            uint v1 = 65535 - (valueTemp >> 16);
+
+                            int valueOut = (int)v1 - 32767;
+
+                            //bad way of doing that...
+                            double doubleValueOut = ((((doubleValueTemp*2.0)/twoPI))-1.0) * scaler;
+                            valueOut = (int)(doubleValueOut * 32767.0);
+
+
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            if (banding > 0)
+                            {
+
+                                int mask = 0xffff;
+                                for(int x=0; x<banding; x++)
+                                {
+                                    mask &= ~(1 << x);
+                                }
+                                valueOut = (valueOut & mask);
+
+                            }
+
+                            v = (short)valueOut;
+
+                           
+
+
+
+                            //convert to int
+                            valueTemp = (uint)((doubleValueTemp / twoPI) * MAX_VALUE);
+
+                            const int TWO_POW_24_SUB_1 = 16777216 - 1;
+
+                            v1 = TWO_POW_24_SUB_1 - (valueTemp >> 8);
+
+                            valueOut = (int)v1 - (TWO_POW_24_SUB_1 >> 1);
+
+
+                            //bad way of doing that...    
+                            int TWO_POW_23_SUB_1 = 8388607;
+                          doubleValueOut = ((((2.0*doubleValueTemp) / twoPI)) - 1.0) * scaler;
+                            valueOut = (int)(doubleValueOut * TWO_POW_23_SUB_1);
+
+                            //scaler = 0.6;
+
+                            //valueOut = (int)(scaler * valueOut);
+
+                            if (valueOut < -TWO_POW_23_SUB_1)
+                                valueOut = -TWO_POW_23_SUB_1;
+                            if (valueOut > (TWO_POW_23_SUB_1))
+                                valueOut = (TWO_POW_23_SUB_1);
+
+                            vInt = (int)valueOut;
+
+
+
+
+
+
+                if (bitsPerSample == 16)
+                    tempBuffer[iI] = v;
+                else if (bitsPerSample == 24)
+                    tempBufferInts[iI] = vInt;
+                /*
+                if (this.channels == 2)
+                    tempBuffer[iI + 1] = this.audioBuffer16[(0 * this.channels) + iI + 1];
+                    */
+
+
+                value += inc;
+
+
+
+                mPhase += mPhaseIncrement;
+                while (mPhase >= twoPI)
+                {
+                    mPhase -= twoPI;
+                }
+
+            }
+
+            if (bitsPerSample == 16)
+                this.audioBuffer16 = tempBuffer;
+            else if (bitsPerSample == 24)
+                this.audioBuffer32 = tempBufferInts;
+
+            this.length = newLength;
+
+            return 1;
+
+        }//openwav
+
+
+
+        public int GenerateNewWav2(int channelsIn, int sampleRateIn, int bitsPerSamplesIn, int lengthIn, Waveform waveformIn, double freqIn, bool usePolyBlep)
+        {
+
+            const double PI2 = 3.14159 * 2.0;
+
+            audioFormat = 0x00;         //just guessed?!
+            channels = channelsIn;
+            sampleRate = sampleRateIn;
+            bitsPerSample = bitsPerSamplesIn;
+
+            byteRate = sampleRate * (bitsPerSample / 8) * channels;
+            blockAlign = bitsPerSample / 8 * channels;
+
+            int newLength = sampleRate;      //1 second i hope
+
+            uint freq = (uint)freqIn;
+            uint value = 0;
+
+            const uint MAX_VALUE = 4294967295;
+
+
+            uint inc = (uint)((MAX_VALUE / sampleRate) * freq);
+
+            double mPhaseIncrement = (((PI2 * (double)freq) / (double)sampleRate));
+            double mPhase = 0f;
+            double twoPI = PI2;
+
+
+            /*
+            Phase Increment = 	Phase Acc Size 		*	 (Desired frequency / Sample rate freq)
+eg			2^32	* 	(440hz / 156250) 	= 12094627.91
+
+Output Freq =		(Phase Increment * Sample rate frequency) / Phase Acc Size
+
+            */
+
+            short[] tempBuffer;
+            int[] tempBufferInts;
+
+            if (bitsPerSample == 16)
+            {
+                tempBuffer = new short[newLength * this.channels];
+                tempBufferInts = new int[1 * this.channels];
+            }
+            else if (bitsPerSample == 24)
+            {
+                tempBuffer = new short[1 * this.channels];
+                tempBufferInts = new int[newLength * this.channels];
+            }
+            else
+            {
+                tempBuffer = new short[1 * this.channels];
+                tempBufferInts = new int[1 * this.channels];
+            }
+                
+        
+
+            short v = 0;
+            int vInt = 0;
+
+
+            for (int i = 0; i < newLength; i++)
+            {
+
+                value += inc;
+
+
+
+                mPhase += mPhaseIncrement;
+                while (mPhase >= twoPI)
+                {
+                    mPhase -= twoPI;
+                }
+
+
+
+                switch (waveformIn)
+                {
+                    case Waveform.Ramp:
+                        {
+                            uint v1 = value >> 16;
+
+                            if (usePolyBlep)
+                            {
+                                v1 = v1 & 0xf000;
+                            }
+
+
+                            int valueOut = (int)v1 - 32767;
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+                        }
+                        break;
+
+                    case Waveform.Saw:
+                        {
+                  
+
+                            double t = 0f;      //param in
+                            double retValue = 0f;
+                            uint intRetValue = 0;
+
+                            //double twoPI = MAX_VALUE;
+
+                            //Polyblep routine to reduce aliasing
+                            //It works by targeting the transients: the part of the saw/ramp wave that is the big jump up/down. 
+                            //The rest of the wav which is a slope is left unaffected.
+                            //We adjust the first and last sample of a period: before and after the jump.
+                            //We do this by adding/subtract an amount to the standard raw wav. For the unaffected parts, zero is added.
+                            //The value added or subtracted is greater the closer we are to zero or one. eg. it is rounded/smoothed more
+
+                            //This is only applicable for a ramp wave; a square wave has two transients per sample
+
+
+                            //poly_blep(double t)
+                            if (usePolyBlep)
+                            {
+                                /*
+                                To go from 2^32 to 2PI range
+                                we do intAcc = piAcc / 2PI * 255 
+                                and piAcc = intAcc / 255 * 2PI
+                                
+                                */
+
+                                //t = mPhase / twoPI;
+                                t = value / (double)MAX_VALUE;
+
+                                //double dt = mPhaseIncrement / twoPI;
+                                double dt = inc / (double)MAX_VALUE;
+
+                                // 0 <= t < 1
+                                if (t < dt)
+                                {
+                                    t /= dt;
+                                    retValue = t + t - t * t - 1.0;
+                                }
+                                // -1 < t < 0
+                                else if (t > 1.0 - dt)
+                                {
+                                    t = (t - 1.0) / dt;
+                                    retValue = t * t + t + t + 1.0;
+                                }
+                                // 0 otherwise
+                                else
+                                    retValue = 0.0f;
+
+                                intRetValue = (uint)((retValue / PI2) * (double)MAX_VALUE);
+
+
+
+
+
+
+
+
+
+
+                               t = mPhase / twoPI;
+                                retValue = poly_blep(t, mPhaseIncrement, twoPI);
+                            }
+
+
+                            double doubleValueTemp = mPhase;
+                            doubleValueTemp -= retValue;
+
+
+                            double scaler = 0.6;
+
+                            //convert to short
+
+                            uint valueTemp = (uint)((doubleValueTemp / twoPI) * MAX_VALUE);
+
+                            /*
+                            uint valueTemp = (uint)((mPhase / twoPI) * MAX_VALUE);
+                            valueTemp -= intRetValue;
+                            */
+
+                            uint v1 = 65535 - (valueTemp >> 16);
+
+                            int valueOut = (int)v1 - 32767;
+                            scaler = 0.6;
+
+                            valueOut = (int)(scaler * valueOut);
+
+                            if (valueOut < -32767)
+                                valueOut = -32767;
+                            if (valueOut > 32767)
+                                valueOut = 32767;
+
+                            v = (short)valueOut;
+
+
+
+
+                            //convert to int
+                            valueTemp = (uint)((doubleValueTemp / twoPI) * MAX_VALUE);
+
+                            const int TWO_POW_24_SUB_1 = 16777216-1;
+
+                            v1 = TWO_POW_24_SUB_1 - (valueTemp >> 8);
+
+                            valueOut = (int)v1 - (TWO_POW_24_SUB_1>>1);
+                            scaler = 0.6;
+
+                            valueOut = (int)(scaler * valueOut);
+
+                            if (valueOut < -(TWO_POW_24_SUB_1 >> 1))
+                                valueOut = -(TWO_POW_24_SUB_1 >> 1);
+                            if (valueOut > (TWO_POW_24_SUB_1 >> 1))
+                                valueOut = (TWO_POW_24_SUB_1 >> 1);
+
+                            vInt = (int)valueOut;
+
+
+
                         }
                         break;
 
